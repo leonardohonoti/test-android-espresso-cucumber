@@ -30,6 +30,9 @@ public class AtividadePrincipalPage {
     }
 
     public void verificarTextoAlterado(String textoEsperado) {
+
+        //onView(withId(R.id.textToBeChanged)).check(matches(withText(textoEsperado)));
+
         onView(withId(R.id.textToBeChanged)).check(((view, noViewFoundException) -> {
             TextView textView = (TextView) view;
             String textoDigitado = textView.getText().toString();
@@ -38,6 +41,9 @@ public class AtividadePrincipalPage {
     }
 
     public void msgCampoObrigatorio (String msgErro) {
+
+        //onView(withId(R.id.errorMessage)).check(matches(withText(msgErro)));
+
         onView(withId(R.id.errorMessage)).check(((view, noViewFoundException) -> {
             TextView textView = (TextView) view;
             String textoDeErro = textView.getText().toString();
