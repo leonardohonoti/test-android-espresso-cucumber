@@ -1,0 +1,112 @@
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+
+android {
+    buildFeatures {
+        buildConfig = true
+    }
+
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.android.testing.espresso.BasicSample"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+        testApplicationId "com.example.android.testing.espresso.BasicSample.test"
+        testInstrumentationRunner "com.example.android.testing.espresso.BasicSample.test.Instrumentation"
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_11
+            targetCompatibility JavaVersion.VERSION_11
+        }
+
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // Removida a linha com getTestTags()
+            sourceSets {
+                androidTest {
+                    assets.srcDirs = ['src/androidTest/assets']
+                }
+            }
+        }
+    }
+
+    productFlavors {
+        // vazio por enquanto
+    }
+
+    sourceSets {
+        androidTest {
+            manifest.srcFile 'src/androidTest/AndroidManifest.xml'
+            assets.srcDirs += ['src/androidTest/assets']
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+        managedDevices {
+            devices {
+                nexusOneApi30(com.android.build.api.dsl.ManagedVirtualDevice) {
+                    device = "Nexus One"
+                    apiLevel = 30
+                    systemImageSource = "aosp-atd"
+                }
+            }
+        }
+    }
+
+    namespace "com.example.android.testing.espresso.BasicSample"
+    testNamespace "com.example.android.testing.espresso.BasicSample.test"
+
+    lint {
+        abortOnError false
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+}
+
+dependencies {
+    // App dependencies
+    implementation "androidx.annotation:annotation:" + rootProject.androidxAnnotationVersion
+    implementation "com.google.guava:guava:" + rootProject.guavaVersion
+
+    // Testing-only dependencies
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    androidTestImplementation "androidx.test:core:" + rootProject.coreVersion
+    androidTestImplementation "androidx.test:core-ktx:" + rootProject.coreVersion
+    androidTestImplementation "androidx.test.ext:junit:" + rootProject.extJUnitVersion
+    androidTestImplementation "androidx.test.ext:junit-ktx:" + rootProject.extJUnitVersion
+    androidTestImplementation "androidx.test:runner:" + rootProject.runnerVersion
+    androidTestImplementation "androidx.test.espresso:espresso-core:" + rootProject.espressoVersion
+
+    testImplementation "androidx.test:core:" + rootProject.coreVersion
+    testImplementation "androidx.test.ext:junit:" + rootProject.extJUnitVersion
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.robolectric:robolectric:" + rootProject.robolectricVersion
+    testImplementation "androidx.test.espresso:espresso-core:" + rootProject.espressoVersion
+    testImplementation "androidx.test.espresso:espresso-intents:" + rootProject.espressoVersion
+    testImplementation "androidx.test.ext:truth:" + rootProject.extTruthVersion
+
+    // cucumber
+    androidTestImplementation 'com.android.support:support-annotations:28.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    androidTestImplementation 'io.cucumber:cucumber-android:7.14.0'
+    androidTestImplementation 'io.cucumber:cucumber-picocontainer:7.14.0'
+}
