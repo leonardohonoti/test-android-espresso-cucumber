@@ -17,20 +17,19 @@ import org.junit.Assert;
 public class AtividadePrincipalPage {
 
     public void digitarTextoCampoEntrada(String texto) {
-        onView(ViewMatchers.withId(com.example.android.testing.espresso.BasicSample.R.id.editTextUserInput))
-                .perform(typeText(texto), closeSoftKeyboard());
+        //onView(ViewMatchers.withId(com.example.android.testing.espresso.BasicSample.R.id.editTextUserInput))
+        onView(ViewMatchers.withId(R.id.editTextUserInput)).perform(typeText(texto), closeSoftKeyboard());
     }
 
     public void pressionarBotaoAlterarTexto() {
-        onView(ViewMatchers.withId(com.example.android.testing.espresso.BasicSample.R.id.changeTextBt)).perform(click());
+        onView(ViewMatchers.withId(R.id.changeTextBt)).perform(click());
     }
 
     public void pressionarBotaoAlterarTextoAtividade() {
-        onView(ViewMatchers.withId(com.example.android.testing.espresso.BasicSample.R.id.activityChangeTextBtn)).perform(click());
+        onView(ViewMatchers.withId(R.id.activityChangeTextBtn)).perform(click());
     }
 
     public void verificarTextoAlterado(String textoEsperado) {
-        //onView(ViewMatchers.withId(R.id.textToBeChanged)).check(matches(withText(textoEsperado)));
         onView(withId(R.id.textToBeChanged)).check(((view, noViewFoundException) -> {
             TextView textView = (TextView) view;
             String textoDigitado = textView.getText().toString();
@@ -39,7 +38,6 @@ public class AtividadePrincipalPage {
     }
 
     public void msgCampoObrigatorio (String msgErro) {
-        //onView(ViewMatchers.withId(R.id.errorMessage)).check(matches(withText(msgErro)));
         onView(withId(R.id.errorMessage)).check(((view, noViewFoundException) -> {
             TextView textView = (TextView) view;
             String textoDeErro = textView.getText().toString();
