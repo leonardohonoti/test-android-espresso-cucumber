@@ -7,7 +7,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = {"features"}      // pasta dentro de src/androidTest/assets
+        features = {"features"}
 )
 public class Instrumentation extends CucumberAndroidJUnitRunner {
 }

@@ -68,6 +68,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             return;
         }
 
+        if (text.matches("\\d+")) {
+            mErrorMessage.setText("Texto não pode conter apenas números");
+            mErrorMessage.setVisibility(View.VISIBLE);
+            return;
+        }
+
         String textoAtual = mTextView.getText().toString().trim();
         if (text.equals(textoAtual)) {
             mErrorMessage.setText("Texto já existe");
